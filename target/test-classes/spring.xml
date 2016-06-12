@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+ 		http://www.springframework.org/schema/util
+ 		http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+    <import resource="discountStrategies.xml"/>
+    <import resource="test.xml"/>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:theater.properties</value>
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound" value="false" />
+        <property name="systemPropertiesMode">
+            <util:constant
+                    static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+        </property>
+    </bean>
+
+    <bean id="audithoriumService" class="ua.epam.spring.hometask.service.impl.AuditoriumServiceImpl">
+        <constructor-arg>
+            <set value-type="java.util.TreeSet">
+                <bean class="ua.epam.spring.hometask.domain.Auditorium">
+                    <constructor-arg value="${nameBig}"/>
+                    <constructor-arg value="${seatsBig}"/>
+                    <constructor-arg value="${vipSeatsBig}"/>
+                </bean>
+                <bean class="ua.epam.spring.hometask.domain.Auditorium">
+                    <constructor-arg value="${nameSmall}"/>
+                    <constructor-arg value="${seatsSmall}"/>
+                    <constructor-arg value="${vipSeatsSmall}"/>
+                </bean>
+                <bean class="ua.epam.spring.hometask.domain.Auditorium">
+                    <constructor-arg value="${nameVIP}"/>
+                    <constructor-arg value="${seatsVIP}"/>
+                    <constructor-arg value="${vipSeatsVIP}"/>
+                </bean>
+            </set>
+        </constructor-arg>
+    </bean>
+
+    <bean id="eventDAO" class="ua.epam.spring.hometask.DAO.impl.EventDAOImpl"/>
+    <bean id="userDAO" class="ua.epam.spring.hometask.DAO.impl.UserDAOImpl"/>
+    <bean id="ticketDAO" class="ua.epam.spring.hometask.DAO.impl.TicketDAOImpl"/>
+
+    <bean id="ticketService" class="ua.epam.spring.hometask.service.impl.TicketServiceImpl">
+        <property name="ticketDAO" ref="ticketDAO"/>
+    </bean>
+
+    <bean id="bookingService" class="ua.epam.spring.hometask.service.impl.BookingServiceImpl">
+        <property name="discountService" ref="discountService"/>
+        <property name="userService" ref="userService"/>
+        <property name="ticketService" ref="ticketService"/>
+    </bean>
+    <bean id="eventService" class="ua.epam.spring.hometask.service.impl.EventServiceImpl">
+        <property name="eventDAO" ref="eventDAO"/>
+    </bean>
+    <bean id="userService" class="ua.epam.spring.hometask.service.impl.UserServiceImpl">
+        <property name="userDAO" ref="userDAO"/>
+    </bean>
+
+
+
+    </beans>
