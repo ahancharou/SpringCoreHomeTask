@@ -1,5 +1,7 @@
 package ua.epam.spring.hometask.domain;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 import java.util.NavigableSet;
 import java.util.Objects;
@@ -8,6 +10,7 @@ import java.util.TreeSet;
 /**
  * @author Yuriy_Tkach
  */
+@Component
 public class User extends DomainObject {
 
     private String firstName;

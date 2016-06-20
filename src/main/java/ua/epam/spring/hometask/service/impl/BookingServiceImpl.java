@@ -1,5 +1,7 @@
 package ua.epam.spring.hometask.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.domain.*;
 import ua.epam.spring.hometask.service.BookingService;
 import ua.epam.spring.hometask.service.DiscountService;
@@ -10,11 +12,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 import java.util.Set;
-
+@Service
 public class BookingServiceImpl implements BookingService {
 
+    @Autowired
     private DiscountService discountService;
+    @Autowired
     private UserService userService;
+    @Autowired
     private TicketService ticketService;
 
     @Override

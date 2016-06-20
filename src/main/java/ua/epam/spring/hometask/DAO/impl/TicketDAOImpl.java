@@ -1,5 +1,6 @@
 package ua.epam.spring.hometask.DAO.impl;
 
+import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.DAO.TicketDAO;
 import ua.epam.spring.hometask.domain.Ticket;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+@Service
 public class TicketDAOImpl implements TicketDAO{
 
     private static List<Ticket> tickets = new ArrayList<>();

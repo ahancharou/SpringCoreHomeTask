@@ -1,11 +1,14 @@
 package ua.epam.spring.hometask.domain;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
  * @author Yuriy_Tkach
  */
+@Component
 public class Ticket extends DomainObject implements Comparable<Ticket> {
 
     private User user;

@@ -1,11 +1,12 @@
 package ua.epam.spring.hometask.DAO.impl;
 
+import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.DAO.UserDAO;
 import ua.epam.spring.hometask.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class UserDAOImpl implements UserDAO{
 
     private static List<User> userStore = new ArrayList<>();

@@ -1,5 +1,7 @@
 package ua.epam.spring.hometask.domain;
 
+import org.springframework.stereotype.Component;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
@@ -7,6 +9,7 @@ import java.util.stream.LongStream;
 /**
  * @author Yuriy_Tkach
  */
+@Component
 public class Auditorium {
 
     private String name;

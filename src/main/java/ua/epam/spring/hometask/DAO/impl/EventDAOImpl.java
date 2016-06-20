@@ -1,11 +1,12 @@
 package ua.epam.spring.hometask.DAO.impl;
 
+import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.DAO.EventDAO;
 import ua.epam.spring.hometask.domain.Event;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class EventDAOImpl implements EventDAO{
 
     public static List<Event> events = new ArrayList<>();

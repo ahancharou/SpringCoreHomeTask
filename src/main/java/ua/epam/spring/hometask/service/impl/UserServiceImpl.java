@@ -1,5 +1,7 @@
 package ua.epam.spring.hometask.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.DAO.UserDAO;
 import ua.epam.spring.hometask.domain.User;
 import ua.epam.spring.hometask.service.UserService;
@@ -7,9 +9,10 @@ import ua.epam.spring.hometask.service.UserService;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-
+@Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private UserDAO userDAO;
 
     @Nullable
