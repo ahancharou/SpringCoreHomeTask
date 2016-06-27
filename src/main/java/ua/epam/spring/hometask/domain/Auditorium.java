@@ -2,6 +2,9 @@ package ua.epam.spring.hometask.domain;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
@@ -10,12 +13,17 @@ import java.util.stream.LongStream;
  * @author Yuriy_Tkach
  */
 @Component
+@Entity
+@Table(name = "Auditorium")
 public class Auditorium {
 
+    @Column
     private String name;
 
+    @Column
     private long numberOfSeats;
 
+    @Column
     private Set<Long> vipSeats = Collections.emptySet();
 
     public Auditorium() {

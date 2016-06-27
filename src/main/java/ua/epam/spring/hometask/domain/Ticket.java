@@ -2,6 +2,7 @@ package ua.epam.spring.hometask.domain;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -9,14 +10,23 @@ import java.util.Objects;
  * @author Yuriy_Tkach
  */
 @Component
+@Entity
+@Table(name = "Ticket")
+@Access(AccessType.FIELD)
 public class Ticket extends DomainObject implements Comparable<Ticket> {
 
+    @ManyToOne
+    @JoinColumn(name = "user")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "event")
     private Event event;
 
+    @Column
     private LocalDateTime dateTime;
 
+    @Column
     private long seat;
 
     public Ticket(User user, Event event, LocalDateTime dateTime, long seat) {

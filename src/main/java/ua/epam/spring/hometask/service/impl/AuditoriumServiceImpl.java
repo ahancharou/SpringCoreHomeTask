@@ -1,38 +1,35 @@
 package ua.epam.spring.hometask.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.domain.Auditorium;
 import ua.epam.spring.hometask.service.AuditoriumService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 @Service
 public class AuditoriumServiceImpl implements AuditoriumService{
 
-    private static Set<Auditorium> auditoriums;
+    @Autowired
+    private EntityManager em;
 
-    public AuditoriumServiceImpl (Set<Auditorium> auditoriums){
-        setAuditoriums(auditoriums);
-    }
-
-    public static Set<Auditorium> getAuditoriums() {
-        return auditoriums;
-    }
-
-    public static void setAuditoriums(Set<Auditorium> auditoriums) {
-        AuditoriumServiceImpl.auditoriums = auditoriums;
-    }
+    private EntityTransaction t;
 
     @Nonnull
     @Override
     public Set<Auditorium> getAll() {
-        return auditoriums;
+        List<Auditorium> auditoriumList = em.createQuery("SELECT a from Auditorium a").getResultList();
+        return new HashSet<>(auditoriumList);
     }
 
     @Nullable
     @Override
     public Auditorium getByName(@Nonnull String name) {
-        return auditoriums.stream().filter(auditorium -> auditorium.getName().equals(name)).findFirst().get();
+        return (Auditorium) em.createQuery("SELECT a from Auditorium a where a.name =:name").setParameter("name", name).getSingleResult();
     }
 }

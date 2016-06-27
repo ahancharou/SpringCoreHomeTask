@@ -1,43 +1,52 @@
 package ua.epam.spring.hometask.DAO.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.DAO.EventDAO;
 import ua.epam.spring.hometask.domain.Event;
 
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.util.List;
 @Service
 public class EventDAOImpl implements EventDAO{
 
-    public static List<Event> events = new ArrayList<>();
+    @Autowired
+    private EntityManager em;
 
-    public static void setEvents(List<Event> events) {
-        EventDAOImpl.events = events;
-    }
+    private EntityTransaction t;
 
     @Override
     public Event save(Event event) {
-        events.add(event);
-        return null;
+        t = em.getTransaction();
+        t.begin();
+        em.persist(event);
+        t.commit();
+        em.clear();
+        return event;
     }
 
     @Override
     public void remove(Event event) {
-        events.remove(event);
+        t = em.getTransaction();
+        t.begin();
+        em.remove(event);
+        t.commit();
+        em.close();
     }
 
     @Override
     public Event getById(Long id) {
-        return events.stream().filter(event -> event.getId().equals(id)).findFirst().get();
+        return em.find(Event.class, id);
     }
 
     @Override
     public Event getByName(String name) {
-        return events.stream().filter(event -> event.getName().equals(name)).findFirst().get();
+        return (Event) em.createQuery("SELECT e from Event e where e.name=:eventName").setParameter("eventName", name).getSingleResult();
     }
 
     @Override
     public List<Event> getAll() {
-        return events;
+        return (List<Event>) em.createQuery("SELECT e from Event e").getResultList();
     }
 }

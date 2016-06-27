@@ -1,34 +1,48 @@
 package ua.epam.spring.hometask.DAO.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.DAO.UserDAO;
 import ua.epam.spring.hometask.domain.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.List;
 @Service
 public class UserDAOImpl implements UserDAO{
 
-    private static List<User> userStore = new ArrayList<>();
+    @Autowired
+    private EntityManager em;
+
+    private EntityTransaction t;
 
     public List<User> getAll(){
-        return userStore;
+        return (List<User>) em.createQuery("SELECT u from User u").getResultList();
     }
 
     public User getById(Long userId){
-        return userStore.stream().filter(user -> user.getId().equals(userId)).findFirst().get();
+        return em.find(User.class, userId);
     }
 
     public User getByEmail(String email){
-        return userStore.stream().filter(user -> user.getEmail().equals(email)).findFirst().get();
+        return (User)em.createQuery("SELECT u from User u WHERE u.email=:email").setParameter("email", email).getSingleResult();
     }
 
     public User save(User user){
-        userStore.add(user);
+        t = em.getTransaction();
+        t.begin();
+        em.persist(user);
+        t.commit();
+        em.clear();
         return user;
     }
 
     public void remove(User user){
-        userStore.remove(user);
+        t = em.getTransaction();
+        t.begin();
+        em.remove(user);
+        t.commit();
+        em.clear();
     }
 }

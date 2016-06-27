@@ -2,6 +2,7 @@ package ua.epam.spring.hometask.domain;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.NavigableSet;
 import java.util.Objects;
@@ -11,16 +12,23 @@ import java.util.TreeSet;
  * @author Yuriy_Tkach
  */
 @Component
+@Entity
+@Table(name = "User")
 public class User extends DomainObject {
 
+    @Column
     private String firstName;
 
+    @Column
     private String lastName;
 
+    @Column
     private String email;
 
+    @Column
     private LocalDate birthday;
 
+    @OneToMany
     private NavigableSet<Ticket> tickets = new TreeSet<>();
 
     public String getFirstName() {
@@ -62,7 +70,6 @@ public class User extends DomainObject {
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
-
 
     @Override
     public boolean equals(Object o) {

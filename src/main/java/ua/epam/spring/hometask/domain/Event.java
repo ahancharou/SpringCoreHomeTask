@@ -2,6 +2,7 @@ package ua.epam.spring.hometask.domain;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.NavigableMap;
@@ -14,16 +15,23 @@ import java.util.TreeSet;
  * @author Yuriy_Tkach
  */
 @Component
+@Entity
+@Table(name = "Event")
 public class Event extends DomainObject {
 
+    @Id
     private String name;
 
     private NavigableSet<LocalDateTime> airDates = new TreeSet<>();
 
+    @Column(name = "basePrice")
     private double basePrice;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column
     private EventRating rating;
 
+    @ElementCollection
     private NavigableMap<LocalDateTime, Auditorium> auditoriums = new TreeMap<>();
 
     /**

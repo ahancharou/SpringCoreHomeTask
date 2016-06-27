@@ -12,6 +12,9 @@ import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.EventRating;
 import ua.epam.spring.hometask.domain.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.NavigableMap;
@@ -75,5 +78,10 @@ public class AppConfig {
     @Bean
     public DiscountAspect discountAspect() {return new DiscountAspect();}
 
+    @Bean
+    public EntityManager em(){
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("SpringCinema");
+        return factory.createEntityManager();
+    }
 }
 
