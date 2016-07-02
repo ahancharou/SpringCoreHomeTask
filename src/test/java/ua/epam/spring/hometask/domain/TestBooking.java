@@ -21,7 +21,7 @@ public class TestBooking {
 
     private BookingService bookingService = (BookingService) context.getBean("bookingService");
 
-    private AuditoriumService auditoriumService = (AuditoriumService) context.getBean("audithoriumService");
+    private AuditoriumService auditoriumService = (AuditoriumService) context.getBean("auditoriumService");
 
     private EventService eventService = (EventService) context.getBean("eventService");
 
