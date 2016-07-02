@@ -32,6 +32,7 @@ public class UserDAOImpl implements UserDAO{
     public User save(User user){
         t = em.getTransaction();
         t.begin();
+        em.joinTransaction();
         em.persist(user);
         t.commit();
         em.clear();
@@ -41,6 +42,7 @@ public class UserDAOImpl implements UserDAO{
     public void remove(User user){
         t = em.getTransaction();
         t.begin();
+        em.joinTransaction();
         em.remove(user);
         t.commit();
         em.clear();

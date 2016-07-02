@@ -20,6 +20,7 @@ public class EventDAOImpl implements EventDAO{
     public Event save(Event event) {
         t = em.getTransaction();
         t.begin();
+        em.joinTransaction();
         em.persist(event);
         t.commit();
         em.clear();
@@ -30,6 +31,7 @@ public class EventDAOImpl implements EventDAO{
     public void remove(Event event) {
         t = em.getTransaction();
         t.begin();
+        em.joinTransaction();
         em.remove(event);
         t.commit();
         em.close();

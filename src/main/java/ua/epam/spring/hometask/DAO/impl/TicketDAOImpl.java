@@ -29,6 +29,7 @@ public class TicketDAOImpl implements TicketDAO{
     public Ticket save(Ticket ticket) {
         t = em.getTransaction();
         t.begin();
+        em.joinTransaction();
         em.persist(ticket);
         t.commit();
         em.clear();
@@ -39,6 +40,7 @@ public class TicketDAOImpl implements TicketDAO{
     public void remove(Ticket ticket) {
         t = em.getTransaction();
         t.begin();
+        em.joinTransaction();
         em.remove(ticket);
         t.commit();
         em.clear();

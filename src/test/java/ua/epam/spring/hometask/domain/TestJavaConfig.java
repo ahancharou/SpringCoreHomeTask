@@ -4,6 +4,7 @@ package ua.epam.spring.hometask.domain;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ua.epam.spring.hometask.DAO.AspectDAO;
 import ua.epam.spring.hometask.aspect.CounterAspect;
 import ua.epam.spring.hometask.aspect.DiscountAspect;
 import ua.epam.spring.hometask.config.AppConfig;
@@ -30,8 +31,7 @@ public class TestJavaConfig {
     private String eventName;
     private String email;
 
-    private CounterAspect counterAspect = (CounterAspect) context.getBean("counterAspect");
-    private DiscountAspect discountAspect = (DiscountAspect) context.getBean("discountAspect");
+    private AspectDAO aspectDAO = (AspectDAO) context.getBean("aspectDAO");
     private boolean setup = setup();
 
     public boolean setup(){
@@ -63,7 +63,7 @@ public class TestJavaConfig {
         System.out.print(price);
         assertEquals(1080.0,price, 0.1);
 
-        System.out.print(counterAspect.getEventsAccessedByName().isEmpty());
+        System.out.print(aspectDAO.getEventsAccessedByName(eventName));
     }
 
 }

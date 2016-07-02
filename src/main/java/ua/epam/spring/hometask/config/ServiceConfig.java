@@ -14,10 +14,7 @@ public class ServiceConfig extends AppConfig{
 
     @Bean
     public AuditoriumService auditoriumService(){
-        Set<Auditorium> auditoria = new HashSet<>();
-        auditoria.add(bigAuditorium());
-
-        return new AuditoriumServiceImpl(auditoria);
+        return new AuditoriumServiceImpl();
     }
 
     @Bean
